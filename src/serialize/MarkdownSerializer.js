@@ -25,6 +25,17 @@ export class MarkdownSerializer {
         return state.out;
     }
 
+    serializeRange(doc, from, to) {
+        const state = new MarkdownSerializerState(this.nodes, this.marks, {
+            hardBreakNodeName: HardBreak.name,
+        });
+
+        const slice = doc.slice(from, to);
+        state.renderContent(slice.content);
+
+        return state.out;
+    }
+
     get nodes() {
         return {
             ...Object.fromEntries(
